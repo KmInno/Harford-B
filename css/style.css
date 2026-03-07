@@ -6,6 +6,20 @@
   --gray: #95a5a6;
 }
 
+/* Lazy Loading Image Styles */
+img {
+  transition: opacity 0.3s ease-in;
+}
+
+img:not([src]) {
+  opacity: 0.5;
+  background-color: #e0e0e0;
+}
+
+img.image-loaded {
+  opacity: 1;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -455,15 +469,18 @@ img {
 .carousel-track {
   display: flex;
   transition: transform 0.5s ease;
+  width: calc(100% * 7); /* 7 slides */
 }
 
 .carousel-item {
-  min-width: 100%;
+  width: 100%;
+  flex-shrink: 0;
+  height: 550px;
 }
 
 .carousel-item img {
   width: 100%;
-  height: 550px;
+  height: 100%;
   object-fit: cover;
   border-radius: 5px;
 }
@@ -479,6 +496,7 @@ button.next {
   padding: 10px 15px;
   cursor: pointer;
   font-size: 20px;
+  pointer-events: auto;
 }
 
 .prev {
@@ -508,7 +526,7 @@ button.next {
     height: auto;
   }
 
-  .carousel-item img {
+  .carousel-item {
     height: 420px;
   }
 }
@@ -535,7 +553,7 @@ button.next {
     padding-right: 14px;
   }
 
-  .carousel-item img {
+  .carousel-item {
     height: 260px;
   }
 
@@ -570,19 +588,19 @@ button.next {
     font-size: 16px;
   }
 
-  .carousel-item img {
+  .carousel-item {
     height: 200px;
   }
 }
 
 /* Controls container for mobile layout */
 .carousel-controls {
-  display: none;
-  /* visible on small screens */
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  box-sizing: border-box;
-  padding: 8px 6px;
-  gap: 8px;
+  height: 100%;
+  pointer-events: none;
 }
 
 @media (max-width: 600px) {
@@ -590,15 +608,18 @@ button.next {
     width: 100%;
   }
 
-  .carousel-item img {
+  .carousel-item {
     height: 240px;
   }
 
   /* Show controls as a horizontal row above the track */
   .carousel-controls {
+    position: static;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: auto;
+    pointer-events: auto;
   }
 
   /* Make prev/next buttons flow in the controls row rather than overlay */
@@ -613,6 +634,7 @@ button.next {
     border-radius: 6px;
     background: var(--primary);
     color: white;
+    pointer-events: auto;
   }
 
   /* Slightly larger tap targets for indicators/nav if present */

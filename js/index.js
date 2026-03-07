@@ -283,3 +283,42 @@ prevBtn.addEventListener("click", prevSlide);
 
 /* Auto transition every 3 seconds */
 setInterval(nextSlide, 3000);
+
+/* ---------- Lazy Loading for Images ---------- */
+const imageObserverOptions = {
+  root: null,
+  rootMargin: '50px',
+  threshold: 0.01
+};
+
+const imageObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      
+      // Handle data-src attribute for lazy loading
+      if (img.dataset.src) {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+      }
+      
+      // Handle data-srcset for responsive images
+      if (img.dataset.srcset) {
+        img.srcset = img.dataset.srcset;
+        img.removeAttribute('data-srcset');
+      }
+      
+      // Stop observing this image once loaded
+      imageObserver.unobserve(img);
+      
+      // Add loaded class for animations if needed
+      img.classList.add('image-loaded');
+    }
+  });
+}, imageObserverOptions);
+
+// Observe all images on the page
+const allImages = document.querySelectorAll('img');
+allImages.forEach(img => {
+  imageObserver.observe(img);
+});
