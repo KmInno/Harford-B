@@ -7,6 +7,6 @@ export default defineConfig({
   preview: {
     host: '0.0.0.0',
     port: process.env.PORT || 3000,
-    allowedHosts: ['rmei-website.onrender.com', 'localhost'],
+    allowedHosts: ['harford-b.onrender.com', 'localhost'],
   },
 })
