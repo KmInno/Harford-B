@@ -30,7 +30,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="navbar fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
+    <nav className="navbar fixed top-0 left-0 w-full z-50 bg-white backdrop-blur-md shadow-sm">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
 
         {/* Logo */}
